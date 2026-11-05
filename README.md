@@ -7,6 +7,61 @@ verses, which shall be true Latin, true verse, and good sense."
 
 The original preface says, in wonderfully sarcasticly florid language, that the book was published to take the wind out of the sails of tradesmen who boast of their work without deeply understanding the systems they use to do it. It shows that anyone can appear to be a latinist and a poet without much effort.
 
+## Usage
+
+This repository includes a command-line version of the method. With
+[uv](https://docs.astral.sh/uv/), run it from the repository:
+
+```sh
+uv run artificial-versifying lines 467182
+```
+
+or install it as a command:
+
+```sh
+uv tool install .
+artificial-versifying lines 467182
+```
+
+`lines` makes one verse per number. Each digit, 1 to 9, picks the word from
+one table:
+
+```
+$ artificial-versifying lines 467182 879889
+Tristia fata tibi producunt sidera prava
+Impia facta scio prædicunt sidera sæpe
+```
+
+`poem` picks the digits at random. `--seed` makes the poem repeatable and
+`--lines` sets its length (default 4):
+
+```
+$ artificial-versifying -m elegiac -t -p poem --seed 1677 --lines 2
+Aspera damna viro producunt crimina tantum
+    Perfida significant arma dolosa malis
+
+AHS-peh-rah DAHM-nah WIH-roh proh-DOO-koont KREE-mih-nah TAHN-toom
+    PER-fih-dah sig-NIH-fih-kahnt AR-mah doh-LOH-sah MAH-lees
+
+Harsh losses for a man produce offenses only
+    Faithless signify arms deceitful for the evil
+```
+
+Options go before `lines` or `poem`:
+
+| Option | Effect |
+|---|---|
+| `-m`, `--mode MODE` | Which tables to use: `orig` (Peter's 1677 hexameters, the default), `revised` (another set of hexameters), `pentameter`, or `elegiac` (alternating `orig` hexameters and pentameters, as elegiac couplets). Hexameters take 6 digits; pentameters take 5. |
+| `-p`, `--phonetics` | After the poem, show how to pronounce it: classical Latin respelled for English speakers, with the stressed syllable in capitals. |
+| `-t`, `--translate` | After the poem, give a word-for-word English gloss. |
+| `-d`, `--debug` | Print debugging details to stderr, such as the seed `poem` used. |
+
+To run the tests:
+
+```sh
+./test.sh
+```
+
 ## The algorithm
 
 1. Choose six digits from 1 to 9, for example `467182`.

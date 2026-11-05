@@ -1,0 +1,14 @@
+[project]
+name = "artificial-versifying"
+version = "0.1.0"
+description = "Generate Latin verses with John Peter's Artificial Versifying (1677)"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = []
+
+[project.scripts]
+artificial-versifying = "artificial_versifying:main"
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"

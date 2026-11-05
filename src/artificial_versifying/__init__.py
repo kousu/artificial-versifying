@@ -1,13 +1,12 @@
-#!/usr/bin/env python3
 """Generate Latin verses with John Peter's Artificial Versifying (1677).
 
 Each number picks one verse: digit n of the number picks a word from table n.
 See README.md for how the tables work.
 
-    ./versifying.py lines 467182 879889
-    ./versifying.py --translate line 467182
-    ./versifying.py --mode elegiac lines 123456 12345
-    ./versifying.py --mode elegiac poem --seed 1677 --lines 4
+    artificial-versifying lines 467182 879889
+    artificial-versifying --translate line 467182
+    artificial-versifying --mode elegiac lines 123456 12345
+    artificial-versifying --mode elegiac poem --seed 1677 --lines 4
 """
 
 import argparse
@@ -263,6 +262,3 @@ def main():
 
     print_verses(verses, args.translate, args.phonetics)
 
-
-if __name__ == "__main__":
-    sys.exit(main())
