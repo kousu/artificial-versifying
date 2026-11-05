@@ -101,6 +101,66 @@ GLOSSES = {
 }
 
 
+# How to say each word, respelled for English speakers, using the classical
+# (restored) pronunciation: c is always "k", g is always hard, v sounds like
+# "w", æ like "eye", œ like "oy". Capitals mark the stressed syllable.
+# Vowels: ah as in "father", eh as in "pet", ay as in "they", ih as in "pit",
+# ee as in "see", oh as in "go", oo as in "moon".
+PHONETICS = {
+    # adjectives
+    "aspera": "AHS-peh-rah", "ardua": "AR-doo-ah", "barbara": "BAR-bah-rah",
+    "effera": "EF-feh-rah", "horrida": "HOR-rih-dah", "ignea": "IG-neh-ah",
+    "impia": "IM-pih-ah", "improba": "IM-proh-bah", "lurida": "LOO-rih-dah",
+    "martia": "MAR-tih-ah", "noxia": "NOK-sih-ah", "perfida": "PER-fih-dah",
+    "pessima": "PES-sih-mah", "sordida": "SOR-dih-dah",
+    "tetrica": "TET-rih-kah", "tristia": "TRIS-tih-ah",
+    "turbida": "TOOR-bih-dah", "turpia": "TOOR-pih-ah",
+    "cruenta": "kroo-EN-tah", "dolosa": "doh-LOH-sah",
+    "maligna": "mah-LIG-nah", "molesta": "moh-LES-tah",
+    "nefanda": "neh-FAHN-dah", "proterva": "proh-TER-wah",
+    "pudenda": "poo-DEN-dah", "sinistra": "sih-NIS-trah",
+    "superba": "soo-PER-bah",
+    # nouns
+    "acta": "AHK-tah", "agmina": "AHG-mih-nah", "arma": "AR-mah",
+    "astra": "AHS-trah", "bella": "BEL-lah", "castra": "KAHS-trah",
+    "crimina": "KREE-mih-nah", "damna": "DAHM-nah", "dicta": "DIK-tah",
+    "dogmata": "DOG-mah-tah", "dona": "DOH-nah", "facta": "FAHK-tah",
+    "fata": "FAH-tah", "fœdera": "FOY-deh-rah", "iura": "YOO-rah",
+    "iurgia": "YOOR-ghih-ah", "labra": "LAH-brah", "lumina": "LOO-mih-nah",
+    "pignora": "PIG-noh-rah", "pocula": "POH-koo-lah",
+    "prælia": "PRY-lih-ah", "scorta": "SKOR-tah", "sidera": "SEE-deh-rah",
+    "signa": "SIG-nah", "sistra": "SIS-trah", "somnia": "SOM-nih-ah",
+    "tela": "TAY-lah", "tempora": "TEM-poh-rah", "verba": "WER-bah",
+    "verbera": "WER-beh-rah", "vincla": "WIN-klah", "vina": "WEE-nah",
+    "vota": "WOH-tah",
+    # pronouns, short phrases
+    "aliis": "AH-lih-ees", "domi": "DOH-mee", "ferunt": "FEH-roont",
+    "foris": "FOH-rees", "inquam": "IN-kwahm", "malis": "MAH-lees",
+    "mihi": "MIH-hee", "palam": "PAH-lahm", "pati": "PAH-tee",
+    "patet": "PAH-tet", "puto": "POO-toh", "reor": "REH-or",
+    "scio": "SKIH-oh", "sequi": "SEH-kwee", "tibi": "TIH-bee",
+    "tuis": "TOO-ees", "vides": "WIH-dayss", "viris": "WEE-rees",
+    "viro": "WIH-roh", "mera": "MEH-rah", "nova": "NOH-wah",
+    # verbs
+    "causabunt": "kow-SAH-boont", "concedunt": "kon-KAY-doont",
+    "concludunt": "kon-KLOO-doont", "confirmant": "kon-FEER-mahnt",
+    "conglomerant": "kon-GLOM-eh-rahnt", "consummant": "kon-SOOM-mahnt",
+    "monstrabunt": "mohn-STRAH-boont", "perficiunt": "per-FIH-kih-oont",
+    "portabunt": "por-TAH-boont", "portendunt": "por-TEN-doont",
+    "prædicunt": "pry-DEE-koont", "præmonstrant": "pry-MOHN-strahnt",
+    "prænarrant": "pry-NAR-rahnt", "præscribunt": "pry-SKREE-boont",
+    "præstabunt": "pry-STAH-boont", "procurant": "proh-KOO-rahnt",
+    "producunt": "proh-DOO-koont", "promittunt": "proh-MIT-toont",
+    "promulgant": "proh-MOOL-gahnt", "proritant": "proh-REE-tahnt",
+    "significant": "sig-NIH-fih-kahnt",
+    # adverbs and final adjectives
+    "acerba": "ah-KER-bah", "certa": "KER-tah", "dira": "DEE-rah",
+    "dura": "DOO-rah", "multa": "MOOL-tah", "nigra": "NIG-rah",
+    "plane": "PLAH-nay", "prava": "PRAH-wah", "quædam": "KWY-dahm",
+    "sæpe": "SY-peh", "sæva": "SY-wah", "semper": "SEM-per",
+    "sola": "SOH-lah", "tantum": "TAHN-toom",
+}
+
 # Each mode cycles through these table sets, one per verse. Elegiac couplets
 # alternate a hexameter with a pentameter; the pentameter is indented, as is
 # customary in print.
@@ -151,9 +211,13 @@ def poem(mode, count, seed=None):
             for indent, tables in layout(mode, count)]
 
 
-def print_verses(verses, translate=False):
+def print_verses(verses, translate=False, phonetics=False):
     for indent, words in verses:
         print(indent + capitalize(" ".join(words)))
+    if phonetics:
+        print()
+        for indent, words in verses:
+            print(indent + " ".join(PHONETICS[w] for w in words))
     if translate:
         print()
         for indent, words in verses:
@@ -167,6 +231,8 @@ def main():
                         "alternates original hexameters and pentameters")
     parser.add_argument("-t", "--translate", action="store_true",
                         help="follow the poem with a word-for-word English gloss")
+    parser.add_argument("-p", "--phonetics", action="store_true",
+                        help="follow the poem with how to pronounce it")
     parser.add_argument("-d", "--debug", action="store_true",
                         help="print debugging to stderr")
     commands = parser.add_subparsers(dest="command", required=True)
@@ -195,7 +261,7 @@ def main():
         except ValueError as e:
             lines_cmd.error(str(e))
 
-    print_verses(verses, args.translate)
+    print_verses(verses, args.translate, args.phonetics)
 
 
 if __name__ == "__main__":
