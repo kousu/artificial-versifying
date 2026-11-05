@@ -114,6 +114,9 @@ are fully interchangeable:
 
 The **Pentameter** tables apply the same method to the second line of an
 elegiac couplet, so a Revised hexameter can be paired with a pentameter.
+They come from Jeffrey M. Binder's
+[versifying.js](https://jeffreymbinder.net/apps/av/versifying.js), part of
+his interactive [*Artificial Versifying*](https://jeffreymbinder.net/?p=304).
 
 The **English** tables are word-for-word glosses of the Original Latin
 tables, slot for slot. They have no meter or rhyme and keep the Latin word
@@ -123,6 +126,7 @@ order.
 
 * [John Peter. *Artificial Versifying, or the School-Boy's Recreation* (London, 1677)](https://archive.org/details/bim_early-english-books-1641-1700_artificial-versifying-th_pater-john_1677)
 * [jeffreymbinder. *Artificial Versifying*. (New York, 2019)](https://jeffreymbinder.net/?p=304)
+* [Jeffrey M. Binder. `versifying.js`](https://jeffreymbinder.net/apps/av/versifying.js): source of the pentameter tables
 
 ## Appendix A: The tables as printed
 

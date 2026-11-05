@@ -13,9 +13,12 @@ See README.md for how the tables work.
 import argparse
 import random
 import sys
+from itertools import takewhile
 
-# Copied from versifying.js, with spelling mistakes fixed. Each table is
-# 9 words interleaved with a stride of 9; a space ends a word.
+# Copied from versifying.js, with spelling mistakes fixed. The pentameter
+# tables are from Jeffrey M. Binder's versifying.js,
+# https://jeffreymbinder.net/apps/av/versifying.js
+# Each table is 9 words interleaved with a stride of 9; a space ends a word.
 TABLES = {
     "orig": [
         "isatthtppmosuroueeprprirrsridebsrpsfairitiiii dadidamdba aaa aab b   b  ",
