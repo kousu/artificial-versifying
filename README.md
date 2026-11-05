@@ -59,7 +59,7 @@ The book's rule (pp. 9–10) is 'count to 9, write the letter out you land on, r
 In python, where we have to adjust for zero-based indexing:
 
 ```
-start = (9 - (d-1))%9
+start = (9 - d -1)%9
 stride = 9
 join(table[start::stride])
 ```
