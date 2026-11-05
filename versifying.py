@@ -167,6 +167,8 @@ def main():
                         "alternates original hexameters and pentameters")
     parser.add_argument("-t", "--translate", action="store_true",
                         help="follow the poem with a word-for-word English gloss")
+    parser.add_argument("-d", "--debug", action="store_true",
+                        help="print debugging to stderr")
     commands = parser.add_subparsers(dest="command", required=True)
     lines_cmd = commands.add_parser("lines", aliases=["line"],
                                     help="make one verse per number")
@@ -182,7 +184,11 @@ def main():
     if args.command == "poem":
         if args.lines < 1:
             poem_cmd.error("--lines must be at least 1")
-        verses = poem(args.mode, args.lines, args.seed)
+        # Pick the seed here, not inside random, so --debug can show it.
+        seed = random.randrange(2**32) if args.seed is None else args.seed
+        if args.debug:
+            print(f"seed: {seed}", file=sys.stderr)
+        verses = poem(args.mode, args.lines, seed)
     elif args.command in ("lines", "line"):
         try:
             verses = lines(args.mode, args.numbers)
