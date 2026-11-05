@@ -20,7 +20,7 @@ With six independent slots of 9 choices each, the tables yield
 
 ## The obfuscation: a scytale
 
-Each table is a plain list of 9 words written interleaved, and printed at a row width that _isn't_ 9. This makes the words run diagonally across the grid and appear random to a casual observer.
+Each table is a plain list of 9 words written interleaved, and printed at a row width that _isn't_ 9. This makes the words run diagonally across the grid and appear random to a casual observer. There are also some stray 'b's thrown on the end as filler and further obsfucation.
 
 Table 1 of the original, as printed (11 wide):
 
@@ -43,8 +43,8 @@ p r p r i r r s r
 i d e b s r p s f
 a i r i t i i i i
   d a d i d a m d
-b   a a a   a a b
-b       b
+b a   a a a   a a
+b   b       b
 ```
 
 Columns read *impia, sordida, aspera, turbida, tristia, horrida, turpia,
@@ -174,7 +174,7 @@ t t t n     n   t
 b b
 ```
 
-### Original hexameter tables, Table 5 (10 wide)
+### Table 5
 
 ```
 s s p f c t d i p i
@@ -186,7 +186,7 @@ r t a a     a   a a
 a     b r   b
 ```
 
-### Original hexameter tables, Table 6 (11 wide)
+### Table 6
 
 ```
 m q c t p s p s s u u
