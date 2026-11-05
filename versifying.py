@@ -112,18 +112,11 @@ MODES = {
 }
 
 
-def start_index(digit):
-    """Count from digit + 1 up to 9 (from 1 for digit 9); return the 0-based cell."""
-    return 8 if digit == 9 else 8 - digit
-
-
 def read_word(table, digit):
-    word = []
-    for letter in table[start_index(digit)::9]:
-        if letter == " ":
-            break
-        word.append(letter)
-    return "".join(word).replace("_", " ")
+    """Count on from digit to 9 (wrapping after 9), then read every 9th cell up to a blank."""
+    i = 9 - digit  # steps taken: digit+1, ..., 9; digit 9 wraps round to 9 steps
+    start = (i - 1) % 9  # 0-based column
+    return "".join(takewhile(lambda c: c != " ", table[start::9]))
 
 
 def make_words(tables, number):
@@ -132,6 +125,39 @@ def make_words(tables, number):
 
 def capitalize(verse):
     return verse[0].upper() + verse[1:]
+
+
+def layout(mode, count):
+    """Return (indent, tables) for each of count verses, cycling through the mode."""
+    cycle = MODES[mode]
+    return [cycle[i % len(cycle)] for i in range(count)]
+
+
+def lines(mode, numbers):
+    """Make one verse per number. Raise ValueError if a number doesn't fit."""
+    verses = []
+    for (indent, tables), number in zip(layout(mode, len(numbers)), numbers):
+        if len(number) != len(tables) or not all(c in "123456789" for c in number):
+            raise ValueError(f"{number!r}: need {len(tables)} digits from 1 to 9 "
+                             f"for this verse in --mode {mode}")
+        verses.append((indent, make_words(tables, number)))
+    return verses
+
+
+def poem(mode, count, seed=None):
+    """Make count verses from random digits; the same seed gives the same poem."""
+    rng = random.Random(seed)
+    return [(indent, make_words(tables, [rng.randint(1, 9) for _ in tables]))
+            for indent, tables in layout(mode, count)]
+
+
+def print_verses(verses, translate=False):
+    for indent, words in verses:
+        print(indent + capitalize(" ".join(words)))
+    if translate:
+        print()
+        for indent, words in verses:
+            print(indent + capitalize(" ".join(GLOSSES[w] for w in words)))
 
 
 def main():
@@ -153,34 +179,17 @@ def main():
                           help="number of verses (default: 4)")
     args = parser.parse_args()
 
-    cycle = MODES[args.mode]
     if args.command == "poem":
         if args.lines < 1:
             poem_cmd.error("--lines must be at least 1")
-        rng = random.Random(args.seed)
-        count = args.lines
-    else:
-        count = len(args.numbers)
-    lines = [cycle[i % len(cycle)] for i in range(count)]
+        verses = poem(args.mode, args.lines, args.seed)
+    elif args.command in ("lines", "line"):
+        try:
+            verses = lines(args.mode, args.numbers)
+        except ValueError as e:
+            lines_cmd.error(str(e))
 
-    if args.command == "poem":
-        numbers = ["".join(rng.choice("123456789") for _ in tables)
-                   for _, tables in lines]
-    else:
-        numbers = args.numbers
-        for (_, tables), number in zip(lines, numbers):
-            if len(number) != len(tables) or not all(c in "123456789" for c in number):
-                lines_cmd.error(f"{number!r}: need {len(tables)} digits from 1 to 9 "
-                                f"for this verse in --mode {args.mode}")
-
-    verses = [(indent, make_words(tables, number))
-              for (indent, tables), number in zip(lines, numbers)]
-    for indent, words in verses:
-        print(indent + capitalize(" ".join(words)))
-    if args.translate:
-        print()
-        for indent, words in verses:
-            print(indent + capitalize(" ".join(GLOSSES[w] for w in words)))
+    print_verses(verses, args.translate)
 
 
 if __name__ == "__main__":
