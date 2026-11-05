@@ -108,7 +108,7 @@ MODES = {
     "orig": [("", TABLES["orig"])],
     "revised": [("", TABLES["revised"])],
     "pentameter": [("", TABLES["pentameter"])],
-    "elegiac": [("", TABLES["revised"]), ("    ", TABLES["pentameter"])],
+    "elegiac": [("", TABLES["orig"]), ("    ", TABLES["pentameter"])],
 }
 
 
@@ -164,7 +164,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("-m", "--mode", choices=MODES, default="orig",
                         help="which tables to use (default: orig); elegiac "
-                        "alternates revised hexameters and pentameters")
+                        "alternates original hexameters and pentameters")
     parser.add_argument("-t", "--translate", action="store_true",
                         help="follow the poem with a word-for-word English gloss")
     commands = parser.add_subparsers(dest="command", required=True)

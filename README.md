@@ -113,7 +113,7 @@ are fully interchangeable:
   every combination scans.
 
 The **Pentameter** tables apply the same method to the second line of an
-elegiac couplet, so a Revised hexameter can be paired with a pentameter.
+elegiac couplet, so an Original hexameter can be paired with a pentameter.
 They come from Jeffrey M. Binder's
 [versifying.js](https://jeffreymbinder.net/apps/av/versifying.js), part of
 his interactive [*Artificial Versifying*](https://jeffreymbinder.net/?p=304).
